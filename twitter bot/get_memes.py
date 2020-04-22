@@ -2,17 +2,17 @@ import requests
 from bs4 import BeautifulSoup as bs
 import os
 
-url = ""
+url = "https://www.facebook.com/pg/ocfreshstolenmemes1/photos/?ref=page_internal"
 
 page = requests.get(url)
 soup = bs(page.text, "html.parser")
 
 image_tags = soup.findAll('img')
 
-if not os.path.exists('models'):
-    os.makedirs('models')
+if not os.path.exists('memes'):
+    os.makedirs('memes')
 
-os.chdir('models')
+os.chdir('memes')
 
 x=0
 
@@ -21,9 +21,10 @@ for image in image_tags:
         ulr = image['src']
         source = requests.get(url)
         if source.status_code == 200:
-            with open('model-' + str(x) + '.jpg', 'wb') as f:
+            with open('memes-' + str(x) + '.png', 'wb') as f:
                 f.write(requests(url).content)
-                f.close()
                 x+=1
+                f.close()
+                
     except:
         pass
